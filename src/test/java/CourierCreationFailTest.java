@@ -1,3 +1,5 @@
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.Test;
@@ -31,6 +33,8 @@ public class CourierCreationFailTest {
     }
 
     @Test
+    @DisplayName("Courier creation empty fields")
+    @Description("Checking that courier can not be created without login or password")
     public void createNewCourierAndCheckResponseStatus(){
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/";
         String json = "{\"login\": \"" + login + "\", \"password\": \"" + password + "\", \"firstName\": \"" + firstName +  "\"}";

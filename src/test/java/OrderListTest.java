@@ -1,3 +1,5 @@
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.Test;
@@ -8,6 +10,8 @@ import static org.hamcrest.Matchers.notNullValue;
 public class OrderListTest {
 
     @Test
+    @DisplayName("Getting order list")
+    @Description("Checking that order list is not empty when getting")
     public void requestOrderList(){
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/";
         Response response =

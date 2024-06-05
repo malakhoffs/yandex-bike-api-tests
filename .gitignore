@@ -28,4 +28,9 @@ bin/
 ### Mac OS ###
 .DS_Store
 # Project exclude paths
-/target/
+/classes/
+/generated-sources/
+/generated-test-sources/
+/maven-status/
+/surefire-reports/
+/test-classes/

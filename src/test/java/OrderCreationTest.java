@@ -1,3 +1,5 @@
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.Test;
@@ -31,6 +33,8 @@ public class OrderCreationTest {
 
 
     @Test
+    @DisplayName("Order correct creation")
+    @Description("Checking that order may be created when all fields are filed correctly")
     public void createNewOrderAndCheckResponseStatus() {
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/";
         String [] color = {blackColor, greyColor};

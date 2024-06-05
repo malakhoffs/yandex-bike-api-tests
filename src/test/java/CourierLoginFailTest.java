@@ -1,3 +1,5 @@
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.Test;
@@ -30,6 +32,8 @@ public class CourierLoginFailTest {
     }
 
     @Test
+    @DisplayName("Courier incorrect authorization")
+    @Description("Checking that courier can not be authorized when mandatory fields are empty or incorrect data is entered")
     public void courierLoginFailTest() {
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/";
             String json = "{\"login\": \"" + login + "\", \"password\": \"" + password + "\"}";
