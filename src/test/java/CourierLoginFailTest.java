@@ -42,7 +42,7 @@ public class CourierLoginFailTest {
                         .header("Content-type", "application/json")
                         .body(newRestrictedLogIn)
                         .when()
-                        .post("/api/v1/courier/login");
+                        .post(Constants.LOGIN);
         response.then().statusCode(greaterThan(399));
     }
 }

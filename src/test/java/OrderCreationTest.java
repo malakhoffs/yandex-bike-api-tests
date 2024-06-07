@@ -44,7 +44,7 @@ public class OrderCreationTest {
                         .header("Content-type", "application/json")
                         .body(newOrder)
                         .when()
-                        .post("/api/v1/orders");
+                        .post(Constants.ORDERS);
         response.then().statusCode(is(201)).and().body("track",notNullValue());
     }
 }

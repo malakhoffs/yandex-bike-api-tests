@@ -42,7 +42,7 @@ public class CourierCreationFailTest {
                         .header("Content-type", "application/json")
                         .body(newRestrictedCourierCreation)
                         .when()
-                        .post("/api/v1/courier");
+                        .post(Constants.COURIER);
         response.then().assertThat().statusCode(400)
         .and().body("message", is("Недостаточно данных для создания учетной записи"));
     }
