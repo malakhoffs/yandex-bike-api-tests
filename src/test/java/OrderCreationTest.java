@@ -36,7 +36,7 @@ public class OrderCreationTest {
     @DisplayName("Order correct creation")
     @Description("Checking that order may be created when all fields are filed correctly")
     public void createNewOrderAndCheckResponseStatus() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/";
+        RestAssured.baseURI = (Constants.HOST);
         String [] color = {blackColor, greyColor};
         OrderPOJO newOrder = new OrderPOJO("Naruto", "Uchiha", "Konoha, 142 apt.", "4", "+7 800 355 35 35", "5", "2020-06-06", "Saske, come back to Konoha", color);
         Response response =
@@ -46,7 +46,5 @@ public class OrderCreationTest {
                         .when()
                         .post("/api/v1/orders");
         response.then().statusCode(is(201)).and().body("track",notNullValue());
-        System.out.println(newOrder);
-        System.out.println(response.asString());
     }
 }

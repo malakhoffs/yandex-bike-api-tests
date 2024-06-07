@@ -8,7 +8,7 @@ import org.junit.Test;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class CourierMainTest {
+public class CourierMainTest extends MainTestsSetUp {
     CourierPOJO courier;
     private final CourierSteps creationSteps = new CourierSteps();
 
@@ -27,7 +27,6 @@ public class CourierMainTest {
     public void courierCreationTest () {
         creationSteps.courierCreate(courier)
                 .assertThat().statusCode(201).and().body("ok", is(true));
-        System.out.println(courier);
     }
 
     @Test
@@ -37,7 +36,6 @@ public class CourierMainTest {
         creationSteps.courierCreate(courier);
         creationSteps.courierCreate(courier)
                 .assertThat().statusCode(409).and().body("message", is("Этот логин уже используется. Попробуйте другой."));
-        System.out.println(courier);
     }
 
     @Test
@@ -47,11 +45,9 @@ public class CourierMainTest {
         creationSteps.courierCreate(courier);
         creationSteps.courierLogin(courier)
                 .assertThat().statusCode(200).and().body("id", notNullValue());
-        System.out.println(courier);
     }
 
     @After
-    @DisplayName("Courier delete")
     public void courierDelete () {
         creationSteps.courierDelete(courier)
                 .assertThat().statusCode(200).and().body("ok", is(true));

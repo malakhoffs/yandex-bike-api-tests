@@ -1,6 +1,5 @@
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.Test;
 
@@ -13,7 +12,6 @@ public class OrderListTest {
     @DisplayName("Getting order list")
     @Description("Checking that order list is not empty when getting")
     public void requestOrderList(){
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/";
         Response response =
                 given()
                         .header("Content-type", "application/json")
@@ -21,6 +19,5 @@ public class OrderListTest {
                         .get("/api/v1/orders");
         response.then().assertThat().statusCode(200)
         .and().body("orders.id", notNullValue()).body("orders.track", notNullValue());
-        System.out.println(response.asString());
     }
 }

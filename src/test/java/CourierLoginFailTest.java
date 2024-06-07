@@ -35,16 +35,15 @@ public class CourierLoginFailTest {
     @DisplayName("Courier incorrect authorization")
     @Description("Checking that courier can not be authorized when mandatory fields are empty or incorrect data is entered")
     public void courierLoginFailTest() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru/";
-            String json = "{\"login\": \"" + login + "\", \"password\": \"" + password + "\"}";
+        RestAssured.baseURI = (Constants.HOST);
+        CourierPOJO newRestrictedLogIn = new CourierPOJO (login, password);
         Response response =
                 given()
                         .header("Content-type", "application/json")
-                        .body(json)
+                        .body(newRestrictedLogIn)
                         .when()
                         .post("/api/v1/courier/login");
         response.then().statusCode(greaterThan(399));
-        System.out.println(response.asString());
     }
 }
 
