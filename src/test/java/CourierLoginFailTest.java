@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 
@@ -27,23 +26,17 @@ public class CourierLoginFailTest {
                 {"Mike26", ""},
                 {"", "12345"},
                 {"", ""},
-                {"&%b7B8n(&N","6gIN78n8gT^&*n"}
         };
     }
 
     @Test
     @DisplayName("Courier incorrect authorization")
     @Description("Checking that courier can not be authorized when mandatory fields are empty or incorrect data is entered")
-    public void courierLoginFailTest() {
+    public void LogInAndCheckResponse() {
         RestAssured.baseURI = (Constants.HOST);
-        CourierPOJO newRestrictedLogIn = new CourierPOJO (login, password);
-        Response response =
-                given()
-                        .header("Content-type", "application/json")
-                        .body(newRestrictedLogIn)
-                        .when()
-                        .post(Constants.LOGIN);
-        response.then().statusCode(greaterThan(399));
+        CourierPOJO newCourier = new CourierPOJO(login, password);
+        Response response = CourierSteps.courierLoginFailure(newCourier);
+        response.then().statusCode(400)
+                .and().body("message", is("Недостаточно данных для входа"));
     }
 }
-

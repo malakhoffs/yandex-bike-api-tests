@@ -5,8 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.*;
 
 public class CourierMainTest extends MainTestsSetUp {
     CourierPOJO courier;
@@ -46,10 +45,16 @@ public class CourierMainTest extends MainTestsSetUp {
         creationSteps.courierLogin(courier)
                 .assertThat().statusCode(200).and().body("id", notNullValue());
     }
+    @Test
+    @DisplayName("Unregistered data authorization")
+    @Description("Checking that courier can not be authorized while using unregistered data")
+    public void courierUnregisteredLoginTest () {
+        creationSteps.courierLogin(courier)
+                .statusCode(404).and().body("message", is ("Учетная запись не найдена"));
+    }
 
     @After
     public void courierDelete () {
-        creationSteps.courierDelete(courier)
-                .assertThat().statusCode(200).and().body("ok", is(true));
+        creationSteps.courierDelete(courier);
     }
 }

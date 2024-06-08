@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
 
@@ -34,16 +33,10 @@ public class CourierCreationFailTest {
     @Test
     @DisplayName("Courier creation empty fields")
     @Description("Checking that courier can not be created without login or password")
-    public void createNewCourierAndCheckResponseStatus(){
+    public void createNewOrderAndCheckResponse() {
         RestAssured.baseURI = (Constants.HOST);
-        CourierPOJO newRestrictedCourierCreation = new CourierPOJO (login, password, firstName);
-        Response response =
-                given()
-                        .header("Content-type", "application/json")
-                        .body(newRestrictedCourierCreation)
-                        .when()
-                        .post(Constants.COURIER);
-        response.then().assertThat().statusCode(400)
-        .and().body("message", is("Недостаточно данных для создания учетной записи"));
+        CourierPOJO newCourier = new CourierPOJO(login, password, firstName);
+        Response response = CourierSteps.courierFailure (newCourier);
+        response.then().statusCode(is(400)).and().body("message", is("Недостаточно данных для создания учетной записи"));
     }
 }
